@@ -1,0 +1,40 @@
+syntax = "proto3";
+
+package chat;
+
+// ===== AUTH SERVICE =====
+service AuthService {
+  rpc Register (AuthRequest) returns (AuthResponse);
+  rpc Login (AuthRequest) returns (AuthResponse);
+}
+
+// ===== USER SERVICE =====
+service UserService {
+  rpc GetOnlineUsers (Empty) returns (UserList);
+}
+
+// ===== CHAT SERVICE =====
+service ChatService {
+  rpc ChatStream (stream ChatMessage) returns (stream ChatMessage);
+}
+
+// ===== MESSAGES =====
+message AuthRequest {
+  string username = 1;
+}
+
+message AuthResponse {
+  bool success = 1;
+  string message = 2;
+}
+
+message ChatMessage {
+  string username = 1;
+  string message = 2;
+}
+
+message Empty {}
+
+message UserList {
+  repeated string users = 1;
+}
