@@ -42,7 +42,7 @@ class ChatService(chat_pb2_grpc.ChatServiceServicer):
         def receive_messages():
             try:
                 for message in request_iterator:
-                    print(f"{message.username}: {message.message}")
+                    print(f"[{message.timestamp}] {message.username}: {message.message}")
 
                     # broadcast ke semua client
                     for client_queue in clients:
@@ -57,7 +57,8 @@ class ChatService(chat_pb2_grpc.ChatServiceServicer):
                 message = q.get()
                 yield chat_pb2.ChatMessage(
                     username=message.username,
-                    message=message.message
+                    message=message.message,
+                    timestamp=message.timestamp
                 )
         except:
             clients.remove(q)

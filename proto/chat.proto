@@ -31,6 +31,7 @@ message AuthResponse {
 message ChatMessage {
   string username = 1;
   string message = 2;
+  string timestamp = 3;
 }
 
 message Empty {}
